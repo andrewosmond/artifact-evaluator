@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <title>Artifact Evaluator</title>
+</head>
+<body>
+    <nav class="navbar navbar-light bg-dark">
+        <a class="navbar-brand" href="">
+            <img src="assets/paimon.png" width="50" height="50" class="d-inline-block align-center" alt="">
+            <span class="navbar-brand ml-1 mb-0 h1 text-white">Artifact Evaluator</span>
+        </a>
+    </nav>
+
+    <div class="content">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Calculation Rule</h5>
+                <p class="card-text">Every 5% ATK, 40 ATK, 3.3% Crit Rate, 6.6% Crit Damage, 5% Energy Recharge, 20 Elemental Mastery,  is counted as 1 effective substat. For a strong set, you want:</br>
+                Flower : 6pt</br>
+                Feather : 6pt</br>
+                Sands : 5pt</br>
+                Goblet : 4pt</br>
+                Circlet : 4pt</br>
+                </p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Evaluate Artifact</h5>
+                <form>
+                    <div class="form-row align-items-center">
+                        <div class="col-2">
+                            <span>Aritfact Type</span>
+                        </div>
+                        <div class="col-10">
+                            <select class="form-control" id="artifactType">
+                                <option value="0">Flower</option>
+                                <option value="1">Feather</option>
+                                <option value="2">Sands</option>
+                                <option value="3">Goblet</option>
+                                <option value="4">Circlet</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row align-items-center">
+                        <div class="col-2">
+                            <label for="atkPercent">ATK%</label>
+                        </div>
+                        <div class="col-10">
+                            <input class="form-control" id="atkPercent">
+                        </div>
+                    </div>
+                    <div class="form-row align-items-center">
+                        <div class="col-2">
+                            <label for="flatATK">ATK</label>
+                        </div>
+                        <div class="col-10">
+                            <input class="form-control" id="flatATK">
+                        </div>
+                    </div>
+                    <div class="form-row align-items-center">
+                        <div class="col-2">
+                            <label for="critRate">Crit Rate</label>
+                        </div>
+                        <div class="col-10">
+                            <input class="form-control" id="critRate">
+                        </div>
+                    </div>
+                    <div class="form-row align-items-center">
+                        <div class="col-2">
+                            <label for="critRate">Crit Damage</label>
+                        </div>
+                        <div class="col-10">
+                            <input class="form-control" id="critDamage">
+                        </div>
+                    </div>
+                    <div class="form-row align-items-center">
+                        <div class="col-2">
+                            <label for="energyRecharge">Energy Recharge</label>
+                        </div>
+                        <div class="col-10">
+                            <input class="form-control" id="energyRecharge">
+                        </div>
+                    </div>
+                    <div class="form-row align-items-center">
+                        <div class="col-2">
+                            <label for="elementalMastery">Elemental Mastery</label>
+                        </div>
+                        <div class="col-10">
+                            <input class="form-control" id="elementalMastery">
+                        </div>
+                    </div>
+                    <div class="form-row align-items-center">
+                        <div class="col-2">
+                            <label for="point">Point</label>
+                        </div>
+                        <div class="col-10">
+                            <span id="point"></span>
+                        </div>
+                    </div>
+                </form>
+                
+                <button onclick="calculatePoint()" class="btn btn-primary">Calculate</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <script>
+        function calculatePoint() {
+            var artifactPoints = [6, 6, 5, 4, 4];
+            var artifactType = document.getElementById("artifactType").value;
+            var atkPercent = document.getElementById("atkPercent").value;
+            var flatATK = document.getElementById("flatATK").value;
+            var critRate = document.getElementById("critRate").value;
+            var critDamage = document.getElementById("critDamage").value;
+            var energyRecharge = document.getElementById("energyRecharge").value;
+            var elementalMastery = document.getElementById("elementalMastery").value;
+            var point = atkPercent / 5 + flatATK / 40 + critRate / 3.3 + critDamage / 6.6 + energyRecharge / 5 + elementalMastery / 20;
+            document.getElementById("point").innerHTML = point.toFixed(2) + '/' + artifactPoints[artifactType] + ' pt';
+        }
+    </script>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
